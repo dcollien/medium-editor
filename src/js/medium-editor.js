@@ -148,7 +148,7 @@ if (window.module !== undefined) {
                 '    <li><button class="medium-editor-action medium-editor-action-bold" data-action="bold" data-element="b">B</button></li>' +
                 '    <li><button class="medium-editor-action medium-editor-action-italic" data-action="italic" data-element="i">I</button></li>' +
                 '    <li><button class="medium-editor-action medium-editor-action-underline" data-action="underline" data-element="u">U</button></li>' +
-                '    <li><button class="medium-editor-action medium-editor-action-anchor" data-action="anchor" data-element="a">#</button></li>' +
+                '    <li><button class="medium-editor-action medium-editor-action-anchor" data-action="anchor" data-element="a"><i class="icon-link"></i></button></li>' +
                 '    <li><button class="medium-editor-action medium-editor-action-header1" data-action="append-' + this.options.firstHeader + '" data-element="' + this.options.firstHeader + '">h1</button></li>' +
                 '    <li><button class="medium-editor-action medium-editor-action-header2" data-action="append-' + this.options.secondHeader + '" data-element="' + this.options.secondHeader + '">h2</button></li>' +
                 '    <li><button class="medium-editor-action medium-editor-action-quote" data-action="append-blockquote" data-element="blockquote">&ldquo;</button></li>' +
@@ -227,7 +227,7 @@ if (window.module !== undefined) {
         },
 
         setToolbarPosition: function () {
-            var buttonHeight = 50,
+            var buttonHeight = 24,
                 selection = window.getSelection(),
                 range = selection.getRangeAt(0),
                 boundary = range.getBoundingClientRect(),
@@ -421,6 +421,7 @@ if (window.module !== undefined) {
             this.savedSelection = saveSelection();
             this.anchorForm.style.display = 'block';
             this.keepToolbarAlive = true;
+            this.setToolbarPosition();
             input.focus();
             input.value = '';
         },
@@ -442,6 +443,7 @@ if (window.module !== undefined) {
                 e.preventDefault();
                 self.showToolbarActions();
                 restoreSelection(self.savedSelection);
+                self.setToolbarPosition();
             });
             return this;
         },
@@ -450,6 +452,7 @@ if (window.module !== undefined) {
             restoreSelection(this.savedSelection);
             document.execCommand('createLink', false, input.value);
             this.showToolbarActions();
+            this.setToolbarPosition();
             input.value = '';
         },
 
